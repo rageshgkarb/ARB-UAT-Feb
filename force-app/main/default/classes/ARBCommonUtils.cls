@@ -81,7 +81,9 @@ public with sharing class ARBCommonUtils {
 
     public static Boolean isWorkingDay ( Date todaysDate ) {
 
-        DateTime currentDateTime = (DateTime) todaysDate ;
+        datetime targetDate = Datetime.now().addHours (3);
+        Time tcurrentTime=targetDate.time();                
+        DateTime currentDateTime = datetime.newInstanceGmt(todaysDate, tcurrentTime);
         String currentDay = currentDateTime.format('EEEE');
         String currentMonth = currentDateTime.format('MMMM');
         System.debug (' dayOfWeek ' + currentDay );
@@ -91,7 +93,7 @@ public with sharing class ARBCommonUtils {
         BusinessHours businessHourRecord = [SELECT Id FROM BusinessHours WHERE IsDefault = true];
 
 
-        Boolean isWithinBusinessHour = BusinessHours.isWithin(businessHourRecord.Id, todaysDate);
+        Boolean isWithinBusinessHour = BusinessHours.isWithin(businessHourRecord.Id, currentDateTime);
 
         System.debug (' isWithinBusinessHour ' + isWithinBusinessHour);
         return isWithinBusinessHour;
