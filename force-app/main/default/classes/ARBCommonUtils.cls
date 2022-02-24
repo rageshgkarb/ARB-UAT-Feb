@@ -133,7 +133,7 @@ public with sharing class ARBCommonUtils {
 
         while(true){
 
-            if(BusinessHours.isWithin(businessHourRecord.Id, lastWorkingDate)){
+            if(ARBCommonUtils.isWorkingDay( lastWorkingDate.date() )){
                 break;
             }
             lastWorkingDate = lastWorkingDate.addDays(-1);
@@ -141,6 +141,6 @@ public with sharing class ARBCommonUtils {
         }
         System.debug ('last working day ' + lastWorkingDate );
         return lastWorkingDate;
-    }
+    }    
    
 }
